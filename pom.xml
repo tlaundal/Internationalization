@@ -15,6 +15,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <scm>
+        <developerConnection>scm:git:file://${project.basedir}</developerConnection>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -70,6 +74,11 @@
                         <version>5.0.0</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
             </plugin>
         </plugins>
     </build>
