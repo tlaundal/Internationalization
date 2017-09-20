@@ -147,4 +147,18 @@ public class I18n {
         return this.repo;
     }
 
+    /**
+     * Get the dirigent used for composition.
+     * <p>
+     * This method is provided to allow for registration of formatters and
+     * other processors on the {@link Dirigent} instance used when composing
+     * messages.
+     * </p>
+     *
+     * @return The dirigent instance used for composition.
+     */
+    public Dirigent<BaseComponent[]> getDirigent() {
+        return this.dirigent;
+    }
+
 }
