@@ -40,7 +40,7 @@ class LanguageRepoTest {
     }
 
     @Test
-    void test1() {
+    void loadTranslations() {
         Locale locale = new Locale.Builder().setLanguage("nb").build();
         loadTestLanguage(this.repo);
 
