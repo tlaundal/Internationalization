@@ -2,7 +2,9 @@ package no.minecraftfest.internationalization;
 
 import de.cubeisland.engine.i18n.language.SourceLanguage;
 import de.cubeisland.engine.i18n.plural.NotOneExpr;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import no.minecraftfest.internationalization.mock.MockReceiver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -89,6 +91,29 @@ class I18nTest {
         Locale actual = i18n.getLocale(norwegianMock);
 
         assertEquals(norwegianLocale, actual, "CommandSender should have norwegian locale");
+    }
+
+    @Test
+    void composeColorFormat() {
+        String toCompose = "{color:red}red";
+        String expected = "§cred";
+
+        BaseComponent[] components = i18n.compose(toCompose);
+        String actual = BaseComponent.toLegacyText(components);
+
+        assertTrue(actual.endsWith(expected), "Text should become colored");
+    }
+
+    @Test
+    void composeWithComponent() {
+        String toCompose = "{color:red}before {0:component} after";
+        TextComponent middle = new TextComponent("middle");
+        middle.setColor(ChatColor.GREEN);
+
+        BaseComponent[] components = i18n.compose(toCompose, middle);
+        String actual = BaseComponent.toLegacyText(components);
+
+        assertTrue(actual.contains("§c after"), "After should have correct color");
     }
 
 }

@@ -4,6 +4,10 @@ import de.cubeisland.engine.i18n.I18nService;
 import de.cubeisland.engine.i18n.language.SourceLanguage;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import no.minecraftfest.internationalization.builder.ComponentMessageBuilder;
+import no.minecraftfest.internationalization.formatter.ColorFormatter;
+import no.minecraftfest.internationalization.formatter.ComponentFormatter;
+import no.minecraftfest.internationalization.formatter.ComponentsFormatter;
 import org.cubeengine.dirigent.Dirigent;
 import org.cubeengine.dirigent.builder.BuilderDirigent;
 
@@ -70,6 +74,9 @@ public class I18n<ReceiverT> {
         this.repo = new LanguageRepo();
         this.service = new I18nService(sourceLanguage, repo, repo, defaultLocale);
         this.dirigent = new BuilderDirigent<>(new ComponentMessageBuilder());
+        dirigent.registerFormatter(new ColorFormatter());
+        dirigent.registerFormatter(new ComponentFormatter());
+        dirigent.registerFormatter(new ComponentsFormatter());
 
         this.locales = new WeakHashMap<>();
     }
