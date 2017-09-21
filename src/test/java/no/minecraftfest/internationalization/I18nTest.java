@@ -3,7 +3,7 @@ package no.minecraftfest.internationalization;
 import de.cubeisland.engine.i18n.language.SourceLanguage;
 import de.cubeisland.engine.i18n.plural.NotOneExpr;
 import net.md_5.bungee.api.chat.BaseComponent;
-import no.minecraftfest.internationalization.mock.MockCommandSender;
+import no.minecraftfest.internationalization.mock.MockReceiver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,20 +13,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class I18nTest {
 
-    private I18n i18n;
+    private I18n<MockReceiver> i18n;
     private Locale defaultLocale;
     private Locale norwegianLocale;
-    private MockCommandSender senderMock;
-    private MockCommandSender norwegianMock;
+    private MockReceiver senderMock;
+    private MockReceiver norwegianMock;
 
     @BeforeEach
     void setup() {
-        i18n = new I18n(new SourceLanguage(Locale.ENGLISH, Locale.ENGLISH.toLanguageTag(), 2, new NotOneExpr()), Locale.ENGLISH);
+        i18n = new I18n<>(new SourceLanguage(Locale.ENGLISH, Locale.ENGLISH.toLanguageTag(), 2, new NotOneExpr()), Locale.ENGLISH, MockReceiver::receive);
         this.defaultLocale = Locale.ENGLISH;
         this.norwegianLocale = new Locale.Builder().setLanguage("nb").build();
-        this.senderMock = new MockCommandSender();
+        this.senderMock = new MockReceiver();
 
-        this.norwegianMock = new MockCommandSender();
+        this.norwegianMock = new MockReceiver();
         i18n.setLocale(norwegianMock, norwegianLocale);
 
         LanguageRepoTest.loadTestLanguage(i18n.getRepo());
