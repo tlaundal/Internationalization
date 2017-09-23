@@ -14,8 +14,8 @@ public class GettextLoader {
     private final PoParser parser;
     private final Charset charset;
 
-    public GettextLoader(Charset charset) {
-        this.parser = new PoParser();
+    public GettextLoader(PoParser parser, Charset charset) {
+        this.parser = parser;
         this.charset = charset;
     }
 

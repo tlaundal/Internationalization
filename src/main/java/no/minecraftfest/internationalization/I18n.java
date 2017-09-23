@@ -45,9 +45,9 @@ public class I18n<ReceiverT> {
     // TODO - plurals
 
     private final Locale defaultLocale;
+    private final LanguageRepo repo;
     private final BiConsumer<ReceiverT, BaseComponent[]> messageSender;
 
-    private final LanguageRepo repo;
     private final I18nService service;
     private final BuilderDirigent<BaseComponent[], ComponentBuilder> dirigent;
 
@@ -55,24 +55,23 @@ public class I18n<ReceiverT> {
 
     /**
      * Construct a new I18n instance
-     *
-     * @param sourceLanguage The language the source code is in. This is used
+     *  @param sourceLanguage The language the source code is in. This is used
      *                       to decide when the source messages can be shown
      *                       without translation
      * @param defaultLocale The default locale for receiver which doesn't have
      *                      a locale set
+     * @param repo The language repo to use for this instance
      * @param messageSender The function which sends the messages. Receives the
-     *                      ReceiverT instance that should receive the message
-     *                      and the {@code BaseComponent[]} array which
-     *                      represents the message
+ *                      ReceiverT instance that should receive the message
+ *                      and the {@code BaseComponent[]} array which
      */
     public I18n(SourceLanguage sourceLanguage, Locale defaultLocale,
-                BiConsumer<ReceiverT, BaseComponent[]> messageSender) {
+                LanguageRepo repo, BiConsumer<ReceiverT, BaseComponent[]> messageSender) {
         this.defaultLocale = defaultLocale;
+        this.repo = repo;
         this.messageSender = messageSender;
 
-        this.repo = new LanguageRepo();
-        this.service = new I18nService(sourceLanguage, repo, repo, defaultLocale);
+        this.service = new I18nService(sourceLanguage, this.repo, this.repo, defaultLocale);
         this.dirigent = new BuilderDirigent<>(new ComponentMessageBuilder());
         dirigent.registerFormatter(new ColorFormatter());
         dirigent.registerFormatter(new ComponentFormatter());

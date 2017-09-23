@@ -7,10 +7,12 @@ import de.cubeisland.engine.i18n.translation.TranslationContainer;
 import de.cubeisland.engine.i18n.translation.TranslationLoadingException;
 import no.minecraftfest.internationalization.mock.MockLanguageDefinition;
 import no.minecraftfest.internationalization.mock.MockTranslationDefinition;
+import org.fedorahosted.tennera.jgettext.PoParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,7 +23,7 @@ class LanguageRepoTest {
 
     @BeforeEach
     void setUp() {
-        this.repo = new LanguageRepo();
+        this.repo = new LanguageRepo(new GettextLoader(new PoParser(), Charset.forName("UTF-8")));
     }
 
     @Test

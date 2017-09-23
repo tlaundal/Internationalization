@@ -11,7 +11,6 @@ import org.fedorahosted.tennera.jgettext.Message;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -27,10 +26,26 @@ public class LanguageRepo extends LanguageLoader implements TranslationLoader {
     private final Map<Locale, LanguageDefinition> definitions;
     private final Map<Locale, List<URL>> translations;
 
-    public LanguageRepo() {
+    public LanguageRepo(GettextLoader loader) {
+        this.loader = loader;
         definitions = new HashMap<>();
         translations = new HashMap<>();
-        loader = new GettextLoader(Charset.defaultCharset());
+    }
+
+    /**
+     * Check that this repo contains definitions and translations for the
+     * supplied locale
+     * <p>
+     *     This method is intended to be used to check that messages can be
+     *     requested in the locale from {@link I18n} services using this
+     *     {@link LanguageRepo} instance.
+     * </p>
+     *
+     * @param locale The locale to test for
+     * @return Whether this locale has definitions and translations
+     */
+    public boolean hasLocale(Locale locale) {
+        return this.definitions.containsKey(locale) && this.translations.containsKey(locale);
     }
 
     /**
@@ -61,7 +76,9 @@ public class LanguageRepo extends LanguageLoader implements TranslationLoader {
      */
     public void addLanguage(LanguageDefinition definition) {
         this.definitions.put(definition.getLocale(), definition);
-        this.translations.put(definition.getLocale(), new ArrayList<>());
+        if (!this.translations.containsKey(definition.getLocale())) {
+            this.translations.put(definition.getLocale(), new ArrayList<>());
+        }
     }
 
     /**

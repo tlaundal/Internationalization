@@ -6,9 +6,11 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import no.minecraftfest.internationalization.mock.MockReceiver;
+import org.fedorahosted.tennera.jgettext.PoParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.Charset;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +25,11 @@ class I18nTest {
 
     @BeforeEach
     void setup() {
-        i18n = new I18n<>(new SourceLanguage(Locale.ENGLISH, Locale.ENGLISH.toLanguageTag(), 2, new NotOneExpr()), Locale.ENGLISH, MockReceiver::receive);
+        i18n = new I18n<>(
+                new SourceLanguage(Locale.ENGLISH, Locale.ENGLISH.toLanguageTag(), 2, new NotOneExpr()),
+                Locale.ENGLISH,
+                new LanguageRepo(new GettextLoader(new PoParser(), Charset.forName("UTF-8"))),
+                MockReceiver::receive);
         this.defaultLocale = Locale.ENGLISH;
         this.norwegianLocale = new Locale.Builder().setLanguage("nb").build();
         this.senderMock = new MockReceiver();
