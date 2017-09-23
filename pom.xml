@@ -4,7 +4,7 @@
 
     <groupId>no.minecraftfest</groupId>
     <artifactId>internationalization</artifactId>
-    <version>0.2.2-SNAPSHOT</version>
+    <version>0.3.0</version>
 
     <name>Internationalization</name>
     <description>Library for internationalization in Spigot plugins</description>
@@ -15,7 +15,7 @@
 
     <scm>
         <developerConnection>scm:git:file://${project.basedir}</developerConnection>
-      <tag>HEAD</tag>
+      <tag>internationalization-0.3.0</tag>
   </scm>
 
     <dependencies>
