@@ -118,6 +118,23 @@ public class I18n<ReceiverT> {
     }
 
     /**
+     * Translate and compose a message
+     * <p>
+     * This is a convenience method and is equivalent to:
+     * {@code i18n.compose(i18n.translate(locale, message), args}
+     * </p>
+     *
+     * @param locale The locale to translate into
+     * @param message The message to translate
+     * @param args The composition arguments
+     * @return The translated and composed message
+     */
+    public BaseComponent[] translateAndCompose(Locale locale, String message, Object... args) {
+        String translated = this.translate(locale, message);
+        return this.compose(translated, args);
+    }
+
+    /**
      * Translate the message to the appropriate language for a
      * {@link ReceiverT}
      * <p>
@@ -135,6 +152,22 @@ public class I18n<ReceiverT> {
         Locale into = this.getLocale(receiver);
 
         return service.translate(into, message);
+    }
+
+    /**
+     * Translate the message to the supplied locale.
+     * <p>
+     * If the language for the locale is not found, the source
+     * language will be used, and thus the same message as is applied to this
+     * function will be returned.
+     * </p>
+     *
+     * @param locale The locale to translate the message into
+     * @param message The message to translate
+     * @return The translated message
+     */
+    public String translate(Locale locale, String message) {
+        return service.translate(locale, message);
     }
 
     /**
