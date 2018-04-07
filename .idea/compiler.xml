@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Internationalization" />
+        <module name="internationalization" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="internationalization" target="1.8" />
       <module name="Internationalization" target="1.8" />
     </bytecodeTargetLevel>
   </component>
